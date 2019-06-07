@@ -33,12 +33,13 @@ namespace Lab1
         /// <summary>
         /// List of cards named deck
         /// </summary>
-        private Card[] deck = new Card[52];
+        private readonly Card[] deck = new Card[52];
         /// <summary>
         /// Default Constructor
         /// </summary>
         public Deck()
         {
+            nextCard = 52;
             for (int i = 0; i < 52; i++)
             {
                 deck[i] = new Card(i);
@@ -67,7 +68,6 @@ namespace Lab1
                 deck[ranNum] = deck[i];
                 deck[i] = mixedCard;
             }
-            nextCard = 0;
         }
         /// <summary>
         /// Cards left in the collection
@@ -84,14 +84,7 @@ namespace Lab1
         /// <returns>A delt card</returns>
         public Card DealACard()
         {
-            int newCardNum = ran.Next(52);           
-            Card deltCard = deck[newCardNum];          
-            nextCard += nextCard;            
-            if (nextCard > 52)
-            {                           
-                nextCard = 0;                           
-            }
-            return deltCard;
+            return this.deck[52 - (this.nextCard--)];
         }
         /// <summary>
         /// Deal a hand
