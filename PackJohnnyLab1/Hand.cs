@@ -2,7 +2,7 @@
 //                                                                                                              
 //  Project:        Lab 1 - Java to C#                                                                                  
 //  File Name:      Hand.cs
-//  Description:    Hand class to construct a hand of cards
+//  Description:    Hand Class
 //  Course:         CSCI 2910-090                                                                             
 //  Author:         Johnny Pack, packjc@etsu.edu, Department of Computing, East Tennessee State University
 //                  
@@ -12,14 +12,14 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Lab1
 {
     /// <summary>
-    /// Hand class
+    /// Class hand
     /// </summary>
     class Hand
     {
@@ -89,5 +89,4 @@ namespace Lab1
             return str.ToString();
         }
     }
-
 }

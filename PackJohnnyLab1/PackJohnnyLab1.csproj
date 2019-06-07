@@ -4,7 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <RootNamespace>Lab1</RootNamespace>
-    <StartupObject>Lab1.Driver</StartupObject>
+    <StartupObject>Lab1.CardsDriver</StartupObject>
   </PropertyGroup>
 
 </Project>

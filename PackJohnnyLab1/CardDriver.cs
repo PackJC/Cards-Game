@@ -1,7 +1,7 @@
 ﻿//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                              
 //  Project:        Lab 1 - Java to C#                                                                                  
-//  File Name:      Driver.cs
+//  File Name:      CardsDriver.cs
 //  Description:    Runs the program
 //  Course:         CSCI 2910-090                                                                             
 //  Author:         Johnny Pack, packjc@etsu.edu, Department of Computing, East Tennessee State University
@@ -18,103 +18,83 @@ namespace Lab1
     /// <summary>
     /// Driver class
     /// </summary>
-    class Driver
+    class CardsDriver
     {
         /// <summary>
-        /// Main
+        /// Main Menu method
         /// </summary>
         public static void Main()
         {
             StartUp();
             Deck deck = new Deck();
+
             Boolean loop = true;
-            Boolean EndLoop = true;
-            int choice = 0;
             int handSize;
             int players;
-            int cardsPlayed;
             deck.Shuffle();
-            do
+            while (loop == true)
             {
-                Console.Clear();
-                loop = true;
-                EndLoop = true;
-                choice = 0;
-                try
-                {
                 Red();
+                deck.NextCard = 0;
                 Console.Write("How many cards are in one hand?");
                 Blue();
-                 handSize = Convert.ToInt32(Console.ReadLine());
+                handSize = Convert.ToInt32(Console.ReadLine());
                 Red();
                 Console.Write("How many players are playing?");
                 Blue();
-                 players = Convert.ToInt32(Console.ReadLine());
-                 cardsPlayed = players * handSize;
- 
+                players = Convert.ToInt32(Console.ReadLine());
+
+                int check = players * handSize;
+                while (check > 52)
+                {
+                    Console.Clear();
+                    Red();
+                    Console.WriteLine("Number of cards over 52.");
+                    Console.Write("How many cards are in one hand?");
+                    Blue();
+                    handSize = Convert.ToInt32(Console.ReadLine());
+                    Red();
+                    Console.Write("How many players are playing?");
+                    Blue();
+                    players = Convert.ToInt32(Console.ReadLine());
+                    check = players * handSize;
+                    Blue();
+                }
                 Console.WriteLine("\n\n");
                 for (int i = 1; i <= players; i++)
-                { 
+                {
                     Red();
                     Console.WriteLine($"Player {i}'s Hand:");
                     Blue();
                     Console.WriteLine(deck.DealAHand(handSize));
                     Red();
-                    deck.Shuffle();     
+                    deck.Shuffle();
                 }
-                if(cardsPlayed  > 52)
-                {
-                    Red();
-                    Console.Clear();
-                    Console.WriteLine("Not enough cards in the deck for the amount of players! \nPress any key to try again!");
-                    Console.ReadKey();
-                }
-
-                }
-                catch
-                {
-                    Red();
-                    Console.WriteLine("\n\n\t\t\t\tERROR: Invalid input! Please start over!\n\n");
-                    loop = true;
-                }
-                
-               
                 Red();
-                Console.Write("\t\t\t\tPress 1 to continue using program.\n\t\t\t\tPress 2 to exit the program.\n");
-                while(EndLoop == true)
+                Console.WriteLine("Press 1 to continue! Any other number to exit!");
+                Blue();
+                int validateInteger;
+                String validateString = Console.ReadLine();
+
+                while (!Int32.TryParse(validateString, out validateInteger))
                 {
-                    try
-                    {
-                        Red();
-                        Console.Write("Choice: ");
-                        Blue();
-                        choice = Convert.ToInt32(Console.ReadLine());
-                        if(choice < 1 && choice > 2)
-                        {                          
-                            Console.Clear();
-                            Red();
-                            Console.WriteLine("ERROR: Invalid input! Please enter 1 to continue or 2 to exit!\n");
-                            EndLoop = true;
-                        }
-                        else
-                        {
-                            EndLoop = false;
-                        }
-                        
-                    }
-                    catch
-                    {
-                        Console.Clear();
-                        Red();
-                        Console.WriteLine("ERROR: Invalid input! Please enter 1 to continue or 2 to exit!\n");
-                    }
+                    Red();
+                    Console.WriteLine("Not a valid number, try again.");
+                    Blue();
+                    validateString = Console.ReadLine();
                 }
-                if(choice == 2)
+                if (validateString == "1")
+                {
+                    loop = true;
+                    Console.Clear();
+                }
+                else
                 {
                     loop = false;
+                    Environment.Exit(0);
                 }
-                
-            } while (loop);
+
+            }
         }
         /// <summary>
         /// Quickly changes console text color to Blue

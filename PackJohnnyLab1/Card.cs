@@ -2,7 +2,7 @@
 //                                                                                                              
 //  Project:        Lab 1 - Java to C#                                                                                  
 //  File Name:      Card.cs
-//  Description:    Constructs a card
+//  Description:    Card Class 
 //  Course:         CSCI 2910-090                                                                             
 //  Author:         Johnny Pack, packjc@etsu.edu, Department of Computing, East Tennessee State University
 //                  
@@ -10,6 +10,7 @@
 //  Copyright:      Johnny Pack, 2019                                                                           
 //                                                                                                              
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 using System;
 
@@ -23,45 +24,44 @@ namespace Lab1
         /// <summary>
         /// Face enum property
         /// </summary>
-        private Face FACE { get; set; }
+        private Face EnumFace { get; set; }
         /// <summary>
         /// Suit enum property
         /// </summary>
-        private Suit SUIT { get; set; }
+        private Suit EnumSuit { get; set; }
         /// <summary>
-        /// Defualt constructor
+        /// Constructor
         /// </summary>
         public Card()
         {
-            this.FACE = FACE;
-            this.SUIT = SUIT;
+            EnumSuit = Suit.SPADES;
+            EnumFace = Face.ACE;
         }
         /// <summary>
-        /// Parameterized Constructor
+        /// Parameterized Contructor
         /// </summary>
-        /// <param name="n">Used to give amount for each enum</param>
+        /// <param name="n">Amt needed</param>
         public Card(int n)
         {
-            FACE = (Face) (n % 13);
-            SUIT = (Suit) (n % 4);
+            EnumFace = (Face)(n % 13);
+            EnumSuit = (Suit)(n % 4);
         }
         /// <summary>
-        /// Deep Copy Constructor
+        /// Copy Constructor
         /// </summary>
-        /// <param name="cardIn"></param>
-        public Card(Card cardIn)
+        /// <param name="existingCard"></param>
+        public Card(Card existingCard)
         {
-            FACE = cardIn.FACE;
-            SUIT = cardIn.SUIT;
+            EnumFace = existingCard.EnumFace;
+            EnumSuit = existingCard.EnumSuit;
         }
         /// <summary>
         /// ToString()
         /// </summary>
-        /// <returns></returns>
-        public  override String ToString()
+        /// <returns>The FACE of SUIT</returns>
+        public override string ToString()
         {
-            String str = $"\tThe {FACE} of {SUIT}";
-            return str;
+            return $"\tThe {EnumFace} of {EnumSuit}";
         }
     }
 }

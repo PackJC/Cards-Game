@@ -2,7 +2,7 @@
 //                                                                                                              
 //  Project:        Lab 1 - Java to C#                                                                                  
 //  File Name:      Deck.cs
-//  Description:    Deck class to construct a Deck of cards
+//  Description:    Deck Class
 //  Course:         CSCI 2910-090                                                                             
 //  Author:         Johnny Pack, packjc@etsu.edu, Department of Computing, East Tennessee State University
 //                  
@@ -23,86 +23,83 @@ namespace Lab1
     class Deck
     {
         /// <summary>
-        /// public random to access over methods
-        /// </summary>
-        public Random ran = new Random();
-        /// <summary>
-        /// Integer of the next card
-        /// </summary>
-        private int nextCard;
-        /// <summary>
-        /// List of cards named deck
+        /// Card array, a deck of cards
         /// </summary>
         private readonly Card[] deck = new Card[52];
         /// <summary>
-        /// Default Constructor
+        /// Next card
+        /// </summary>
+        public int NextCard { get; set; }
+        /// <summary>
+        /// Constructor
         /// </summary>
         public Deck()
         {
-            nextCard = 52;
-            for (int i = 0; i < 52; i++)
+            NextCard = 0;
+
+            for (int i = 0; i < deck.Length; i++)
             {
                 deck[i] = new Card(i);
             }
+
         }
         /// <summary>
-        /// Deep copy constructor
+        /// Copy constructor
         /// </summary>
-        /// <param name="deckIn"></param>
-        public Deck(Deck deckIn)
+        /// <param name="existingDeck">Incoming copy of a deck</param>
+        public Deck(Deck existingDeck)
         {
-            for (int i = 0; i < 52; i++)
+            for (int i = 0; i < deck.Length; i++)
             {
-                this.deck[i] = deckIn.deck[i];
+                deck[i] = new Card(existingDeck.deck[i]);
             }
         }
         /// <summary>
-        /// Shuffle's cards in random position
+        /// Shuffles card array around
         /// </summary>
         public void Shuffle()
         {
-            int ranNum = ran.Next(52);
+            Random ran = new Random();
+
             for (int i = 0; i < 52; i++)
             {
+                int ranNum = ran.Next(52);
                 Card mixedCard = deck[ranNum];
                 deck[ranNum] = deck[i];
                 deck[i] = mixedCard;
             }
         }
         /// <summary>
-        /// Cards left in the collection
+        /// Returns a card
         /// </summary>
-        /// <returns></returns>
-        public int CardsLeft()
-        {
-            int cardsLeft = 52 - nextCard;
-            return cardsLeft;
-        }
-        /// <summary>
-        /// Deal a card
-        /// </summary>
-        /// <returns>A delt card</returns>
+        /// <returns>Card out of a deck</returns>
         public Card DealACard()
         {
-            return this.deck[52 - (this.nextCard--)];
+
+            Card deltCard = new Card(deck[NextCard]);
+
+            NextCard++;
+
+            return deltCard;
         }
         /// <summary>
-        /// Deal a hand
+        /// Returns a hand
         /// </summary>
-        /// <param name="handSize"></param>
-        /// <returns>a delt hand</returns>
-        public Hand DealAHand(int handSize) { 
-            Hand hand = new Hand(handSize);
-            for (int i = 0; i < handSize; i++)
+        /// <param name="HandSize"></param>
+        /// <returns>A hand of cards</returns>
+        public Hand DealAHand(int HandSize = 5)
+        {
+            Hand hand = new Hand(HandSize);
+            for (int i = 0; i < HandSize; i++)
             {
                 hand.AddCard(DealACard());
-            } 
+            }
             return hand;
         }
         /// <summary>
         /// ToString
         /// </summary>
-        /// <returns>ToString info on Deck</returns>
+        /// <returns>Deck</returns>
         public override String ToString()
         {
             StringBuilder str = new StringBuilder("");
